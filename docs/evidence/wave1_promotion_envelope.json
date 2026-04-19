@@ -1,0 +1,40 @@
+{
+  "admission_stage": "wave1_internal",
+  "allowed_packet_classes": [
+    "search_assist_packet"
+  ],
+  "fallback_reason_codes": [
+    "no_renderable_rows",
+    "toon_disabled"
+  ],
+  "feature_flag_name": "PACT_ENABLE_TOON_WAVE1",
+  "generated_at": "2026-04-19T23:36:23Z",
+  "non_strict_canonical_digests": {
+    "toon_fail_closed_answer_packet": "sha256:06a9a4d212482060e3619bd8b957e515c5d41441d970fb87017274627525d0ea",
+    "toon_fallback_zero_rows": "sha256:69f235ebeac6543bff57acaf011ac4f8391aecf2377d1edafb036709804ee9d6"
+  },
+  "operator_evidence_paths": [
+    "docs/evidence/toon_wave1_operator_examples.md"
+  ],
+  "promotion_notes": "Cross-repo wave-1 promotion envelope derived from PACT-owned manifest and promotion packet. PACT is the upstream serialization authority; downstream repos may carry this envelope but may not redefine TOON wave-1 rendering, fallback, or admission rules.",
+  "promotion_packet_hash": "sha256:5cee99f85e19c8e11eabbf25959182b88377a6e799e1ec90c5bb6180dbfcbd1d",
+  "promotion_packet_path": "docs/evidence/toon_wave1_promotion_packet.json",
+  "promotion_packet_version": "1.0.0",
+  "repo_gate_report_path": "docs/evidence/toon_wave1_gate_report.json",
+  "source_commit": "5af333f81f865fb593952a60a3e7551f3abc4688",
+  "source_repo": "pact",
+  "source_schema_versions": {
+    "toon_registry": "1.0.0",
+    "toon_segment": "1.0.0"
+  },
+  "strict_success_hash": "sha256:e11c303a2d61950cef8502d41e6337cf53c2dae94456bdff79d12cde8304568c",
+  "supported_requested_profiles": [
+    "plain_text_with_toon_segment"
+  ],
+  "supported_used_profiles": [
+    "plain_text_only",
+    "plain_text_with_toon_segment"
+  ],
+  "wave_manifest_hash": "sha256:26b75ef5232a149e523d1bf2db1302cf5a9ba4025d66cdaecbd227e0dadedcf8",
+  "wave_manifest_path": "docs/evidence/toon_wave1_manifest.json"
+}

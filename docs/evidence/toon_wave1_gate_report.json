@@ -10,7 +10,9 @@
     "slice_07_ci_gate_files_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_ci_gate_files_report.json",
     "slice_08_replay_matrix_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_replay_matrix_report.json",
     "slice_09_golden_hashes_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_golden_hashes_report.json",
-    "slice_10_non_strict_canonical_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_non_strict_canonical_report.json"
+    "slice_10_non_strict_canonical_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_non_strict_canonical_report.json",
+    "slice_11_non_strict_digest_lock_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_non_strict_digest_lock_report.json",
+    "slice_12_wave1_manifest": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_wave1_manifest.json"
   },
   "repo_gate": "toon_wave1",
   "runs": [
@@ -67,6 +69,18 @@
       "ok": true,
       "returncode": 0,
       "script": "scripts/verify_toon_non_strict_canonical.py"
+    },
+    {
+      "label": "slice_11_non_strict_digest_lock",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_non_strict_digest_lock.py"
+    },
+    {
+      "label": "slice_12_wave1_manifest",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_wave1_manifest.py"
     }
   ]
 }

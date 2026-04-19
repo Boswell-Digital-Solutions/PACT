@@ -10,7 +10,7 @@
       "used_profile": "plain_text_with_toon_segment"
     },
     {
-      "artifact_hash": "sha256:f71a250663627fde95dc957091bf89e4e9fd79fcb78b67cad0654c7c82023299",
+      "artifact_hash": "sha256:64131c43b2459278ad9edd877e16251e00220cbf120278edf8d1a63aa6c8a232",
       "artifact_kind": "plain_text",
       "fallback_used": true,
       "name": "toon_fallback_zero_rows",
@@ -18,7 +18,7 @@
       "used_profile": "plain_text_only"
     },
     {
-      "artifact_hash": "sha256:2ca080ca3f979f6865bfe4a1c21cf9483dab283e9ee8703d0317319ff1ec027b",
+      "artifact_hash": "sha256:14b19cb9a6ce8eb9e8e367fccb8fc0b46ac15575239fb0c73c364e897e00e7a8",
       "artifact_kind": "plain_text",
       "fallback_used": false,
       "name": "toon_fail_closed_answer_packet",

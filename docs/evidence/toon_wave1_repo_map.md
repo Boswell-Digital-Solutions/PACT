@@ -19,10 +19,13 @@
 | `scripts/verify_toon_replay_matrix.py` | yes | file |
 | `scripts/verify_toon_golden_hashes.py` | yes | file |
 | `scripts/verify_toon_non_strict_canonical.py` | yes | file |
+| `scripts/verify_toon_non_strict_digest_lock.py` | yes | file |
+| `scripts/verify_toon_wave1_manifest.py` | yes | file |
 | `scripts/verify_toon_repo_gate.py` | yes | file |
 | `tests/fixtures/toon_wave1_replay_cases.json` | yes | file |
 | `tests/fixtures/toon_wave1_golden_hashes.json` | yes | file |
 | `tests/fixtures/toon_wave1_non_strict_canonical_targets.json` | yes | file |
+| `tests/fixtures/toon_wave1_non_strict_canonical_digests.json` | yes | file |
 | `99-contracts/schemas/serialization_evidence.schema.json` | yes | file |
 | `99-contracts/schemas/serialization_evidence_segment_meta.schema.json` | yes | file |
 | `99-contracts/schemas/serialization_evidence_token_estimates.schema.json` | yes | file |
@@ -39,3 +42,5 @@
 | `doc/system/50_operations/05_toon_replay_matrix.md` | yes | file |
 | `doc/system/50_operations/06_toon_golden_hash_lock.md` | yes | file |
 | `doc/system/50_operations/07_toon_non_strict_canonical_lock.md` | yes | file |
+| `doc/system/50_operations/08_toon_non_strict_digest_lock.md` | yes | file |
+| `doc/system/50_operations/09_toon_wave1_manifest.md` | yes | file |

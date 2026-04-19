@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PACT Wave-1 Promotion Envelope",
+  "description": "Cross-repo carrier of admitted PACT wave-1 truth. Owned and emitted only by PACT. Downstream repos may load, verify, and reference this envelope; they may not redefine its meaning or generate it locally.",
+  "type": "object",
+  "required": [
+    "promotion_packet_version",
+    "source_repo",
+    "source_commit",
+    "wave_manifest_path",
+    "wave_manifest_hash",
+    "strict_success_hash",
+    "non_strict_canonical_digests",
+    "allowed_packet_classes",
+    "supported_requested_profiles",
+    "supported_used_profiles",
+    "fallback_reason_codes",
+    "feature_flag_name",
+    "admission_stage",
+    "generated_at"
+  ],
+  "properties": {
+    "promotion_packet_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "source_repo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,40}$"
+    },
+    "wave_manifest_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "wave_manifest_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "promotion_packet_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_packet_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "strict_success_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "non_strict_canonical_digests": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^sha256:[0-9a-f]{64}$"
+      }
+    },
+    "allowed_packet_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "supported_requested_profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "supported_used_profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "fallback_reason_codes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "feature_flag_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "admission_stage": {
+      "type": "string",
+      "enum": [
+        "wave1_internal",
+        "wave1_local_admitted",
+        "wave1_cloud_admitted",
+        "wave1_governed"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "operator_evidence_paths": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "repo_gate_report_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_notes": {
+      "type": "string"
+    },
+    "source_schema_versions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      }
+    }
+  },
+  "additionalProperties": false
+}

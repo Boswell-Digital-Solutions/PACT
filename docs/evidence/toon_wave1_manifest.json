@@ -1,0 +1,132 @@
+{
+  "artifact_paths": {
+    "extension_governance_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_extension_governance_report.json",
+    "gate_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_wave1_gate_report.json",
+    "golden_hashes_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_golden_hashes_report.json",
+    "non_strict_canonical_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_non_strict_canonical_report.json",
+    "non_strict_digest_lock_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_non_strict_digest_lock_report.json",
+    "observability_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_observability_report.json",
+    "operator_examples": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_wave1_operator_examples.md",
+    "promotion_packet": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_wave1_promotion_packet.json",
+    "replay_matrix_report": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_replay_matrix_report.json",
+    "repo_map": "/home/charlie/Forge/ecosystem/pact/docs/evidence/toon_wave1_repo_map.md"
+  },
+  "feature_flag": "PACT_ENABLE_TOON_WAVE1",
+  "gate_runs": [
+    {
+      "label": "slice_01_boundary",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_slice_01.py"
+    },
+    {
+      "label": "slice_02_wave1",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_wave1.py"
+    },
+    {
+      "label": "slice_03_observability",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_observability.py"
+    },
+    {
+      "label": "slice_05_extension_governance",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_extension_governance.py"
+    },
+    {
+      "label": "slice_06_promotion_packet",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_promotion_packet.py"
+    },
+    {
+      "label": "slice_07_ci_gate_files",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_ci_gate_files.py"
+    },
+    {
+      "label": "slice_08_replay_matrix",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_replay_matrix.py"
+    },
+    {
+      "label": "slice_09_golden_hashes",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_golden_hashes.py"
+    },
+    {
+      "label": "slice_10_non_strict_canonical",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_non_strict_canonical.py"
+    },
+    {
+      "label": "slice_11_non_strict_digest_lock",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_non_strict_digest_lock.py"
+    },
+    {
+      "label": "slice_12_wave1_manifest",
+      "ok": true,
+      "returncode": 0,
+      "script": "scripts/verify_toon_wave1_manifest.py"
+    }
+  ],
+  "non_strict_canonical_digests": {
+    "toon_fail_closed_answer_packet": "sha256:06a9a4d212482060e3619bd8b957e515c5d41441d970fb87017274627525d0ea",
+    "toon_fallback_zero_rows": "sha256:69f235ebeac6543bff57acaf011ac4f8391aecf2377d1edafb036709804ee9d6"
+  },
+  "registry": {
+    "admission_stage": "wave1_internal",
+    "capability_class": "wave1_ranked_result_segment",
+    "field_order": [
+      "rank",
+      "title",
+      "source_ref",
+      "summary"
+    ],
+    "row_definition_id": "ranked_result_row_v1",
+    "schema_version": "1.0.0",
+    "segment_version": "1.0.0",
+    "supported_packet_classes": [
+      "search_assist_packet"
+    ]
+  },
+  "replay_cases": [
+    {
+      "artifact_hash": "sha256:e11c303a2d61950cef8502d41e6337cf53c2dae94456bdff79d12cde8304568c",
+      "artifact_kind": "toon_segment",
+      "fallback_used": false,
+      "name": "toon_success",
+      "ok": true,
+      "used_profile": "plain_text_with_toon_segment"
+    },
+    {
+      "artifact_hash": "sha256:64131c43b2459278ad9edd877e16251e00220cbf120278edf8d1a63aa6c8a232",
+      "artifact_kind": "plain_text",
+      "fallback_used": true,
+      "name": "toon_fallback_zero_rows",
+      "ok": true,
+      "used_profile": "plain_text_only"
+    },
+    {
+      "artifact_hash": "sha256:14b19cb9a6ce8eb9e8e367fccb8fc0b46ac15575239fb0c73c364e897e00e7a8",
+      "artifact_kind": "plain_text",
+      "fallback_used": false,
+      "name": "toon_fail_closed_answer_packet",
+      "ok": false,
+      "used_profile": "plain_text_only"
+    }
+  ],
+  "status": "green",
+  "strict_success_hash": "sha256:e11c303a2d61950cef8502d41e6337cf53c2dae94456bdff79d12cde8304568c",
+  "wave": "toon_wave1"
+}
