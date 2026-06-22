@@ -1,64 +1,43 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOC_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-REPO_ROOT="$(cd "$DOC_DIR/.." && pwd)"
+# Assembles the compiled system reference (designation PAC).
+# Fail-closed: missing structure, designation/output mismatch, or snapshot
+# validation failure aborts the build with BUILD_FAILED on stderr.
+
+PARTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$PARTS_DIR/../.." && pwd)"
 DESIGNATION="PAC"
-OUTPUT_PATH="$DOC_DIR/${DESIGNATION}SYSTEM.md"
+OUTPUT="${OUTPUT:-doc/${DESIGNATION}SYSTEM.md}"
+VALIDATOR="$PARTS_DIR/validate_snapshots.sh"
 
-REQUIRED_DIRS=(
-  "$SCRIPT_DIR/00_overview"
-  "$SCRIPT_DIR/10_service-contract"
-  "$SCRIPT_DIR/20_runtime"
-  "$SCRIPT_DIR/30_dependencies"
-  "$SCRIPT_DIR/40_governance"
-  "$SCRIPT_DIR/50_operations"
-  "$SCRIPT_DIR/99_appendices"
-)
+fail() { echo "BUILD_FAILED: $1" >&2; exit 1; }
 
-REQUIRED_FILES=(
-  "$SCRIPT_DIR/00_overview/00_repo_identity.md"
-  "$SCRIPT_DIR/00_overview/01_scope_and_role.md"
-  "$SCRIPT_DIR/10_service-contract/00_service_contract.md"
-  "$SCRIPT_DIR/20_runtime/00_runtime_topology.md"
-  "$SCRIPT_DIR/30_dependencies/00_dependencies.md"
-  "$SCRIPT_DIR/40_governance/00_governance_and_controls.md"
-  "$SCRIPT_DIR/50_operations/00_operations_and_verification.md"
-  "$SCRIPT_DIR/99_appendices/00_appendix_repo_layout.md"
-)
+case "$OUTPUT" in
+  *"${DESIGNATION}SYSTEM.md") ;;
+  *) fail "output path '$OUTPUT' does not match designation ${DESIGNATION}" ;;
+esac
 
-for dir_path in "${REQUIRED_DIRS[@]}"; do
-  if [[ ! -d "$dir_path" ]]; then
-    echo "BUILD FAIL: missing required directory: $dir_path" >&2
-    exit 1
-  fi
+[ -f "$PARTS_DIR/_index.md" ] || fail "missing $PARTS_DIR/_index.md"
+REQUIRED_DIRS=(00_overview 10_service-contract 20_runtime 30_dependencies 40_governance 50_operations 99_appendices)
+for dir in "${REQUIRED_DIRS[@]}"; do
+  [ -d "$PARTS_DIR/$dir" ] || fail "missing required folder doc/system/$dir"
+  found=0
+  for part in "$PARTS_DIR/$dir"/[0-9][0-9]-*.md; do [ -e "$part" ] && found=1 && break; done
+  [ "$found" -eq 1 ] || fail "no numbered chapters in doc/system/$dir"
 done
-
-for file_path in "${REQUIRED_FILES[@]}"; do
-  if [[ ! -f "$file_path" ]]; then
-    echo "BUILD FAIL: missing required file: $file_path" >&2
-    exit 1
-  fi
-done
-
-{
-  echo "# PACSYSTEM"
-  echo
-  echo "- Repository: PACT"
-  echo "- Designation: PAC"
-  echo "- Repo class: service / internal runtime"
-  echo "- Canonical artifact path: doc/PACSYSTEM.md"
-  echo "- Build entry: doc/system/BUILD.sh"
-  echo "- Date: 2026-04-15"
-  echo "- Time: 07:58:08 PM America/New_York"
-  echo
-  for file_path in "${REQUIRED_FILES[@]}"; do
-    echo "---"
-    echo
-    cat "$file_path"
-    echo
-  done
-} > "$OUTPUT_PATH"
-
-echo "BUILD OK: wrote $OUTPUT_PATH"
+mkdir -p "$(dirname "$ROOT_DIR/$OUTPUT")"
+TMP_OUTPUT="$(mktemp)"
+trap 'rm -f "$TMP_OUTPUT"' EXIT
+cat "$PARTS_DIR/_index.md" > "$TMP_OUTPUT"
+PART_COUNT=0
+while IFS= read -r part; do
+  { echo ""; echo "---"; echo ""; cat "$part"; } >> "$TMP_OUTPUT"
+  PART_COUNT=$((PART_COUNT + 1))
+done < <(find "$PARTS_DIR" -mindepth 2 -maxdepth 2 -type f -name '[0-9][0-9]-*.md' | sort)
+[ "$PART_COUNT" -ge 7 ] || fail "expected at least 7 chapters, found $PART_COUNT"
+if [ -f "$VALIDATOR" ]; then bash "$VALIDATOR" "$TMP_OUTPUT" || fail "snapshot validation failed"; else fail "missing validator $VALIDATOR"; fi
+cp "$TMP_OUTPUT" "$ROOT_DIR/$OUTPUT"
+chmod 664 "$ROOT_DIR/$OUTPUT"
+LINE_COUNT=$(wc -l < "$ROOT_DIR/$OUTPUT")
+echo "BUILD_OK designation=${DESIGNATION} output=${OUTPUT} parts=${PART_COUNT} lines=${LINE_COUNT}"
