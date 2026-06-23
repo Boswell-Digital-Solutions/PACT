@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pact-contracts"
+version = "0.1.0"
+description = "Importable consumable form of PACT cross-repo contracts (continuity vocabulary). Consumers IMPORT canonical value sets from here instead of hand-mirroring them; the authority remains the locked JSON schemas in pact/99-contracts/schemas/, kept in lockstep by a gate."
+requires-python = ">=3.9"
+# Zero runtime dependencies on purpose: pure-Python frozensets so the package
+# bundles cleanly into frozen (PyInstaller) sidecars with no data-file or
+# third-party-dependency baggage.
+dependencies = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["pact_contracts"]
