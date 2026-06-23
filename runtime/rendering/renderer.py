@@ -389,6 +389,17 @@ def _render_plain_text_only(packet: dict[str, Any]) -> str:
                 *_render_string_list(packet.get("selection_constraints")),
             ]
         )
+    elif packet_class == "continuity_findings_packet":
+        scope_bounds = packet.get("scope_bounds") or {}
+        scene_ids = scope_bounds.get("scene_ids") if isinstance(scope_bounds, dict) else None
+        lines.extend(
+            [
+                f"REVIEW_STATE: {_safe_text(packet.get('review_state'))}",
+                f"SCOPE_SCENE_IDS: {_safe_text(', '.join(scene_ids) if isinstance(scene_ids, list) else '')}",
+                "CANDIDATE_FINDINGS:",
+                *_render_candidate_findings(packet.get("candidate_findings")),
+            ]
+        )
     else:
         public_reason = packet.get("public_reason_code")
         failure_state = packet.get("failure_state")
@@ -487,6 +498,35 @@ def _render_ranked_results(value: Any) -> list[str]:
             + f"| summary={_safe_text(row.get('summary'))}"
         )
     return lines
+
+def _render_candidate_findings(value: Any) -> list[str]:
+    if not isinstance(value, list) or not value:
+        return ["- (none)"]
+    lines: list[str] = []
+    for finding in value:
+        if not isinstance(finding, dict):
+            lines.append(f"- {canonical_json(finding)}")
+            continue
+        lines.append(
+            "- "
+            + f"label={_safe_text(finding.get('finding_label'))} "
+            + f"| type={_safe_text(finding.get('finding_type'))} "
+            + f"| confidence={_safe_text(finding.get('confidence'))} "
+            + f"| state={_safe_text(finding.get('candidate_state'))}"
+        )
+        lines.append(f"  CLAIM: {_safe_text(finding.get('claim'))}")
+        spans = finding.get("evidence_spans")
+        if isinstance(spans, list):
+            for span in spans:
+                if isinstance(span, dict):
+                    lines.append(
+                        "  EVIDENCE: "
+                        + f"scene_id={_safe_text(span.get('scene_id'))} "
+                        + f"| span_role={_safe_text(span.get('span_role'))} "
+                        + f"| span_text={_safe_text(span.get('span_text'))}"
+                    )
+    return lines
+
 
 def _safe_text(value: Any) -> str:
     if value is None:

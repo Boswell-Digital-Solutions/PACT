@@ -35,6 +35,7 @@ SCHEMA_MAP = {
     "answer_packet": "answer_packet.schema.json",
     "policy_response_packet": "policy_response_packet.schema.json",
     "search_assist_packet": "search_assist_packet.schema.json",
+    "continuity_findings_packet": "continuity_findings_packet.schema.json",
 }
 ROOT_DIR = Path(__file__).resolve().parents[1]
 

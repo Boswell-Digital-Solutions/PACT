@@ -12,6 +12,7 @@ BUDGETS = {
     "answer_packet": {"max_input_tokens": 3500},
     "policy_response_packet": {"max_input_tokens": 3000},
     "search_assist_packet": {"max_input_tokens": 4200},
+    "continuity_findings_packet": {"max_input_tokens": 4200},
 }
 
 
@@ -127,6 +128,11 @@ def prepare_compile_input(normalized: dict[str, Any], retrieval_result: Any) -> 
             compile_input["required_cautions"] = compile_input.get("required_cautions", ["Return only grounded policy guidance."])
             compile_input["grounding_refs"] = grounding_refs
             compile_input["disallowed_answer_modes"] = compile_input.get("disallowed_answer_modes", [])
+        elif packet_class == "continuity_findings_packet":
+            scope_scene_ids = list(compile_input.get("scope_bounds", {}).get("scene_ids", []))
+            compile_input["scope_bounds"] = {"scene_ids": scope_scene_ids} if scope_scene_ids else compile_input.get("scope_bounds", {"scene_ids": []})
+            compile_input["candidate_findings"] = compile_input.get("candidate_findings", [])
+            compile_input["grounding_refs"] = grounding_refs
         else:
             compile_input["search_goal"] = compile_input.get("search_goal") or normalized.get("retrieval_goal") or "Rank grounded results."
             compile_input["ranked_result_blocks"] = [

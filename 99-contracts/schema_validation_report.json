@@ -6,6 +6,7 @@
     "99-contracts/fixtures/valid/answer_packet.valid.json",
     "99-contracts/fixtures/valid/policy_response_packet.valid.json",
     "99-contracts/fixtures/valid/search_assist_packet.valid.json",
+    "99-contracts/fixtures/valid/continuity_findings_packet.valid.json",
     "99-contracts/fixtures/valid/safe_failure_packet.valid.json",
     "99-contracts/fixtures/valid/runtime_receipt.valid.json",
     "99-contracts/fixtures/valid/negative_constraint.valid.json",
@@ -23,6 +24,7 @@
     "99-contracts/fixtures/invalid/answer_packet.invalid.json",
     "99-contracts/fixtures/invalid/policy_response_packet.invalid.json",
     "99-contracts/fixtures/invalid/search_assist_packet.invalid.json",
+    "99-contracts/fixtures/invalid/continuity_findings_packet.invalid.json",
     "99-contracts/fixtures/invalid/safe_failure_packet.invalid.json",
     "99-contracts/fixtures/invalid/runtime_receipt.invalid.json",
     "99-contracts/fixtures/invalid/negative_constraint.invalid.json",
@@ -40,6 +42,7 @@
     "99-contracts/fixtures/edge/answer_packet.edge.json",
     "99-contracts/fixtures/edge/policy_response_packet.edge.json",
     "99-contracts/fixtures/edge/search_assist_packet.edge.json",
+    "99-contracts/fixtures/edge/continuity_findings_packet.edge.json",
     "99-contracts/fixtures/edge/safe_failure_packet.edge.json",
     "99-contracts/fixtures/edge/runtime_receipt.edge.json",
     "99-contracts/fixtures/edge/negative_constraint.edge.json",
@@ -54,9 +57,9 @@
   ],
   "failures": [],
   "counts": {
-    "valid_passed": 15,
-    "invalid_rejected": 15,
-    "edge_passed": 15,
+    "valid_passed": 16,
+    "invalid_rejected": 16,
+    "edge_passed": 16,
     "failures": 0
   }
 }
