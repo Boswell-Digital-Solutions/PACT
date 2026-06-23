@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bds.local/pact/v1/schemas/continuity_findings_packet.schema.json",
+  "title": "PACT V1 Continuity Findings Packet",
+  "allOf": [
+    {
+      "$ref": "./packet_base.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "packet_class",
+        "scope_bounds",
+        "candidate_findings",
+        "grounding_refs",
+        "review_state"
+      ],
+      "properties": {
+        "packet_class": {
+          "const": "continuity_findings_packet"
+        },
+        "scope_bounds": {
+          "type": "object",
+          "required": [
+            "scene_ids"
+          ],
+          "properties": {
+            "scene_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "candidate_findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "finding_id",
+              "finding_label",
+              "finding_type",
+              "claim",
+              "scope_type",
+              "scope_bounds",
+              "evidence_spans",
+              "confidence",
+              "uncertainty_note",
+              "review_note",
+              "candidate_state"
+            ],
+            "properties": {
+              "finding_id": {
+                "type": "string"
+              },
+              "finding_label": {
+                "type": "string"
+              },
+              "finding_type": {
+                "type": "string",
+                "enum": [
+                  "continuity_tension",
+                  "progression_break",
+                  "transition_gap",
+                  "descriptive_mismatch",
+                  "repeated_movement",
+                  "escalation_mismatch",
+                  "state_carry_forward_issue",
+                  "causal_link_unclear"
+                ]
+              },
+              "claim": {
+                "type": "string"
+              },
+              "scope_type": {
+                "type": "string",
+                "enum": [
+                  "scene_local",
+                  "adjacent_scene",
+                  "scene_window",
+                  "chapter_window"
+                ]
+              },
+              "scope_bounds": {
+                "type": "object",
+                "required": [
+                  "scene_ids"
+                ],
+                "properties": {
+                  "scene_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "evidence_spans": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "scene_id",
+                    "span_text",
+                    "span_role"
+                  ],
+                  "properties": {
+                    "scene_id": {
+                      "type": "string"
+                    },
+                    "span_text": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "span_role": {
+                      "type": "string",
+                      "enum": [
+                        "setup",
+                        "contrast",
+                        "carry_forward",
+                        "mismatch_signal",
+                        "transition_signal",
+                        "progression_signal"
+                      ]
+                    },
+                    "chapter_id": {
+                      "type": "string"
+                    },
+                    "position_hint": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "moderate",
+                  "high"
+                ]
+              },
+              "uncertainty_note": {
+                "type": "string",
+                "minLength": 1
+              },
+              "review_note": {
+                "type": "string",
+                "minLength": 1
+              },
+              "candidate_state": {
+                "type": "string",
+                "enum": [
+                  "candidate_unreviewed",
+                  "candidate_review_in_progress",
+                  "candidate_retained",
+                  "candidate_rejected",
+                  "candidate_promoted"
+                ]
+              },
+              "related_finding_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "severity_hint": {
+                "type": "string",
+                "enum": [
+                  "minor",
+                  "moderate",
+                  "major"
+                ]
+              },
+              "taxonomy_tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "grounding_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "./grounding_ref.schema.json"
+          }
+        },
+        "review_state": {
+          "type": "string",
+          "enum": [
+            "candidate_unreviewed",
+            "candidate_review_in_progress",
+            "candidate_retained",
+            "candidate_rejected",
+            "candidate_promoted"
+          ]
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

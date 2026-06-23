@@ -1,0 +1,45 @@
+{
+  "description": "Registry of every VENDORED copy of pact's canonical continuity contract schemas across the ecosystem. The sync verifier (tests/test_vendored_schema_sync.py) asserts each vendored copy is byte-identical to its upstream in 99-contracts/. This is the cross-cutting drift gate: the per-repo enum gates assert against their LOCAL vendored copy, and this gate proves those local copies are the true canonical. Paths are relative to the ecosystem root (default /home/charlie/Forge, override with FORGE_ECOSYSTEM_ROOT).",
+  "canonical_ssot": "ecosystem/pact/99-contracts/schemas/continuity_findings_packet.schema.json (+ its $ref siblings)",
+  "continuity_schemas": [
+    "continuity_findings_packet.schema.json",
+    "packet_base.schema.json",
+    "grounding_ref.schema.json",
+    "source_lineage_digest.schema.json",
+    "serialization_profile_enum.schema.json"
+  ],
+  "vendor_dirs": [
+    "ecosystem/pact/99-contracts/tests/_vendor/schemas",
+    "apps/Author-Forge/apps/api/src/contracts/_vendor",
+    "apps/public-app-local-support/neuronforge/schemas/_vendor",
+    "ecosystem/local-systems/neuronforge-local-operator/schemas/_vendor",
+    "ecosystem/cloud-systems/NeuroForge/tests/_vendor/pact",
+    "ecosystem/precomputed-context-core/tests/_vendor"
+  ],
+  "vendored": [
+    { "consumer": "pact-selftest", "upstream": "ecosystem/pact/99-contracts/schemas/continuity_findings_packet.schema.json", "path": "ecosystem/pact/99-contracts/tests/_vendor/schemas/continuity_findings_packet.schema.json" },
+    { "consumer": "pact-selftest", "upstream": "ecosystem/pact/99-contracts/schemas/packet_base.schema.json", "path": "ecosystem/pact/99-contracts/tests/_vendor/schemas/packet_base.schema.json" },
+    { "consumer": "pact-selftest", "upstream": "ecosystem/pact/99-contracts/schemas/grounding_ref.schema.json", "path": "ecosystem/pact/99-contracts/tests/_vendor/schemas/grounding_ref.schema.json" },
+    { "consumer": "pact-selftest", "upstream": "ecosystem/pact/99-contracts/schemas/source_lineage_digest.schema.json", "path": "ecosystem/pact/99-contracts/tests/_vendor/schemas/source_lineage_digest.schema.json" },
+    { "consumer": "pact-selftest", "upstream": "ecosystem/pact/99-contracts/schemas/serialization_profile_enum.schema.json", "path": "ecosystem/pact/99-contracts/tests/_vendor/schemas/serialization_profile_enum.schema.json" },
+
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/schemas/continuity_findings_packet.schema.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/continuity_findings_packet.schema.json" },
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/schemas/packet_base.schema.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/packet_base.schema.json" },
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/schemas/grounding_ref.schema.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/grounding_ref.schema.json" },
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/schemas/source_lineage_digest.schema.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/source_lineage_digest.schema.json" },
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/schemas/serialization_profile_enum.schema.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/serialization_profile_enum.schema.json" },
+    { "consumer": "authorforge-api", "upstream": "ecosystem/pact/99-contracts/fixtures/valid/continuity_findings_packet.valid.json", "path": "apps/Author-Forge/apps/api/src/contracts/_vendor/fixtures/continuity_findings_packet.valid.json" },
+
+    { "consumer": "neuronforge", "upstream": "ecosystem/pact/99-contracts/schemas/continuity_findings_packet.schema.json", "path": "apps/public-app-local-support/neuronforge/schemas/_vendor/continuity_findings_packet.schema.json" },
+    { "consumer": "neuronforge", "upstream": "ecosystem/pact/99-contracts/schemas/packet_base.schema.json", "path": "apps/public-app-local-support/neuronforge/schemas/_vendor/packet_base.schema.json" },
+    { "consumer": "neuronforge", "upstream": "ecosystem/pact/99-contracts/schemas/grounding_ref.schema.json", "path": "apps/public-app-local-support/neuronforge/schemas/_vendor/grounding_ref.schema.json" },
+    { "consumer": "neuronforge", "upstream": "ecosystem/pact/99-contracts/schemas/source_lineage_digest.schema.json", "path": "apps/public-app-local-support/neuronforge/schemas/_vendor/source_lineage_digest.schema.json" },
+    { "consumer": "neuronforge", "upstream": "ecosystem/pact/99-contracts/schemas/serialization_profile_enum.schema.json", "path": "apps/public-app-local-support/neuronforge/schemas/_vendor/serialization_profile_enum.schema.json" },
+
+    { "consumer": "neuronforge-local-operator", "upstream": "ecosystem/pact/99-contracts/schemas/continuity_findings_packet.schema.json", "path": "ecosystem/local-systems/neuronforge-local-operator/schemas/_vendor/continuity_findings_packet.schema.json" },
+
+    { "consumer": "neuroforge-cloud", "upstream": "ecosystem/pact/99-contracts/schemas/packet_base.schema.json", "path": "ecosystem/cloud-systems/NeuroForge/tests/_vendor/pact/packet_base.schema.json" },
+
+    { "consumer": "pcc", "upstream": "ecosystem/pact/99-contracts/schemas/packet_base.schema.json", "path": "ecosystem/precomputed-context-core/tests/_vendor/pact_packet_base.schema.json" }
+  ]
+}
