@@ -30,6 +30,14 @@ BUDGETS = {
         "max_input_tokens": 4200,
         "min_reduction_percent": 35.0,
     },
+    "continuity_findings_packet": {
+        "max_retrieval_ms": 400,
+        "max_rerank_prune_ms": 300,
+        "max_compile_validate_ms": 175,
+        "max_total_overhead_ms": 875,
+        "max_input_tokens": 4200,
+        "min_reduction_percent": 35.0,
+    },
 }
 
 STATE_PRIORITY = {
@@ -73,6 +81,9 @@ def reduce_compile_input_for_retry(packet_class: str, compile_input: dict[str, A
         reduced["ranked_result_blocks"] = list(reduced.get("ranked_result_blocks", []))[:2]
         reduced["grounding_refs"] = list(reduced.get("grounding_refs", []))[:2]
         reduced["result_count"] = len(reduced["ranked_result_blocks"])
+    elif packet_class == "continuity_findings_packet":
+        reduced["candidate_findings"] = list(reduced.get("candidate_findings", []))[:1]
+        reduced["grounding_refs"] = list(reduced.get("grounding_refs", []))[:1]
     return reduced
 
 

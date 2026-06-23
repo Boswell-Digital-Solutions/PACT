@@ -17,6 +17,7 @@ SCHEMA_FILES = [
     "answer_packet.schema.json",
     "policy_response_packet.schema.json",
     "search_assist_packet.schema.json",
+    "continuity_findings_packet.schema.json",
     "safe_failure_packet.schema.json",
     "runtime_receipt.schema.json",
     "negative_constraint.schema.json",
@@ -28,6 +29,15 @@ SCHEMA_FILES = [
     "grounding_ref.schema.json",
     "source_lineage_digest.schema.json",
     "cache_manifest_entry.schema.json",
+]
+
+# Sub-schemas referenced via $ref by SCHEMA_FILES (e.g. runtime_receipt ->
+# serialization_evidence -> segment_meta / token_estimates) that must resolve in
+# the registry but are not themselves fixture-tested here.
+REGISTRY_EXTRA_FILES = [
+    "serialization_evidence.schema.json",
+    "serialization_evidence_segment_meta.schema.json",
+    "serialization_evidence_token_estimates.schema.json",
 ]
 
 
@@ -53,7 +63,7 @@ def normalize_refs(node: Any, base_uri: str) -> Any:
 
 def load_normalized_schemas() -> dict[str, dict[str, Any]]:
     normalized: dict[str, dict[str, Any]] = {}
-    for filename in SCHEMA_FILES:
+    for filename in SCHEMA_FILES + REGISTRY_EXTRA_FILES:
         raw = load_json(SCHEMA_DIR / filename)
         if not isinstance(raw, dict):
             raise RuntimeError(f"{filename} did not load as an object")

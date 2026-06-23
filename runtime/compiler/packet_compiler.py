@@ -69,6 +69,22 @@ def _compile_search_assist_packet_legacy(base: dict[str, Any], compile_input: di
     return packet
 
 
+def _compile_continuity_findings_packet_legacy(base: dict[str, Any], compile_input: dict[str, Any]) -> dict[str, Any]:
+    packet = _merge_known_fields(
+        base,
+        compile_input,
+        [
+            "scope_bounds",
+            "candidate_findings",
+            "grounding_refs",
+            "review_state",
+        ],
+    )
+    if "review_state" not in packet:
+        packet["review_state"] = "candidate_unreviewed"
+    return packet
+
+
 def compile_packet_legacy(normalized: dict[str, Any]) -> dict[str, Any]:
     packet_class = normalized["packet_class"]
     base = build_packet_base(normalized)
@@ -80,6 +96,8 @@ def compile_packet_legacy(normalized: dict[str, Any]) -> dict[str, Any]:
         packet = _compile_policy_response_packet_legacy(base, compile_input)
     elif packet_class == "search_assist_packet":
         packet = _compile_search_assist_packet_legacy(base, compile_input)
+    elif packet_class == "continuity_findings_packet":
+        packet = _compile_continuity_findings_packet_legacy(base, compile_input)
     else:
         raise PacketCompileError("unsupported packet class", public_reason_code="validation_failed")
 
@@ -124,6 +142,17 @@ def _derive_search_assist_packet(base: dict[str, Any], compile_input: dict[str, 
     }
 
 
+def _derive_continuity_findings_packet(base: dict[str, Any], compile_input: dict[str, Any], normalized: dict[str, Any]) -> dict[str, Any]:
+    scope_bounds = compile_input.get("scope_bounds") or {"scene_ids": []}
+    return {
+        **base,
+        "scope_bounds": scope_bounds,
+        "candidate_findings": compile_input.get("candidate_findings", []),
+        "grounding_refs": compile_input.get("grounding_refs", []),
+        "review_state": compile_input.get("review_state", "candidate_unreviewed"),
+    }
+
+
 def compile_packet(normalized: dict[str, Any]) -> dict[str, Any]:
     packet_class = normalized["packet_class"]
     base = build_packet_base(normalized)
@@ -135,6 +164,8 @@ def compile_packet(normalized: dict[str, Any]) -> dict[str, Any]:
         packet = _derive_policy_response_packet(base, compile_input, normalized)
     elif packet_class == "search_assist_packet":
         packet = _derive_search_assist_packet(base, compile_input, normalized)
+    elif packet_class == "continuity_findings_packet":
+        packet = _derive_continuity_findings_packet(base, compile_input, normalized)
     else:
         raise PacketCompileError("unsupported packet class", public_reason_code="validation_failed")
 

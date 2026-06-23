@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "packet_id": "pkt-cont-001",
+  "packet_class": "continuity_findings_packet",
+  "packet_revision": 1,
+  "request_id": "req-cont-001",
+  "trace_id": "trace-cont-001",
+  "consumer_identity": "neuronforge",
+  "permission_context_digest": "permctxdigest0001",
+  "source_lineage_digest": {
+    "digest_algorithm": "sha256",
+    "digest": "abcd1234abcd1234",
+    "source_scope": "packet"
+  },
+  "serialization_profile": "plain_text_only",
+  "lifecycle_state": "validated",
+  "freshness_state": "fresh",
+  "admissibility_state": "admissible",
+  "created_at": "2026-06-23T18:00:00Z",
+  "expires_at": "2026-06-23T18:30:00Z",
+  "packet_hash": "hashvalue00000001",
+  "grounding_required": true,
+  "warnings": [],
+  "restrictions": [],
+  "scope_bounds": {
+    "scene_ids": [
+      "scene-a",
+      "scene-b"
+    ]
+  },
+  "candidate_findings": [
+    {
+      "finding_id": "find-001",
+      "finding_label": "Unexplained location shift between adjacent scenes",
+      "finding_type": "transition_gap",
+      "claim": "The narrator appears in the harbor at the end of scene A but opens scene B inside the manor without a transition bridging the two locations.",
+      "scope_type": "adjacent_scene",
+      "scope_bounds": {
+        "scene_ids": [
+          "scene-a",
+          "scene-b"
+        ]
+      },
+      "evidence_spans": [
+        {
+          "scene_id": "scene-a",
+          "span_text": "She lingered at the harbor wall as the tide drew back.",
+          "span_role": "setup",
+          "position_hint": "ending"
+        },
+        {
+          "scene_id": "scene-b",
+          "span_text": "By morning she was already pacing the manor library.",
+          "span_role": "transition_signal",
+          "position_hint": "opening"
+        }
+      ],
+      "confidence": "moderate",
+      "uncertainty_note": "It is unclear whether an intervening scene was intended to carry the travel between harbor and manor.",
+      "review_note": "Reviewer should check whether the missing transition is deliberate compression or an omission.",
+      "candidate_state": "candidate_unreviewed"
+    }
+  ],
+  "grounding_refs": [
+    {
+      "grounding_id": "gr-cont-001",
+      "source_ref": "scene-a",
+      "authority_class": "primary",
+      "excerpt": "She lingered at the harbor wall as the tide drew back.",
+      "start_offset": 0,
+      "end_offset": 53
+    }
+  ],
+  "review_state": "candidate_unreviewed"
+}

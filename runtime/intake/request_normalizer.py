@@ -16,6 +16,7 @@ ALLOWED_PACKET_CLASSES = {
     "answer_packet",
     "policy_response_packet",
     "search_assist_packet",
+    "continuity_findings_packet",
 }
 
 ALLOWED_SERIALIZATION_PROFILES = {
