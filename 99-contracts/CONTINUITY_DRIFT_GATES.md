@@ -57,19 +57,23 @@ The surface is currently converged; these gates keep it that way.
    hashes (`wave_manifest_hash`/`strict_success_hash`) keep `sha256:64hex`, pinned
    separately. pact/PCC/AuthorForge unchanged (canonical stays `minLength 8`). The
    NeuroForge gate now pins the alignment + the retained integrity strictness.
-2. **packet_class admission ceiling (real, latent).** pact enumerates
-   `continuity_findings_packet`, but NeuroForge's wave-1 promotion mirror
-   (`promotion/mirror/pact_wave1_envelope_mirror.json`) admits only
-   `search_assist_packet`. A continuity packet promoted to the cloud seam is not
-   admitted today — by design (continuity is local-only), but a ceiling to lift
-   when continuity promotion is wired.
-3. **Unvalidated committed fixtures (gate-coverage gap).** NeuronForge
-   `outputs/*.envelope.json` and `inputs/case-packets/*.json` embed literal enum
-   values from real model runs; no gate validates them against the schema. A
-   stale/invalid committed fixture would not be caught by the mirror gates.
-   **Recommended follow-on:** a fixture-conformance gate validating committed
-   envelopes against the candidate schema (kept separate, since these are runtime
-   data, not contract mirrors, and may carry legitimate edge cases).
+2. **packet_class admission — RE-FRAMED 2026-06-23 (not a ceiling).** The earlier
+   note read this as a continuity "ceiling to lift." On inspection it is *correct
+   scoping*, not a gap: NeuroForge's `promotion/mirror/pact_wave1_envelope_mirror.json`
+   is a **PACT-owned, TOON wave-1** envelope (feature flag `PACT_ENABLE_TOON_WAVE1`,
+   profiles `plain_text_with_toon_segment`) whose `allowed_packet_classes` is
+   deliberately `[search_assist_packet]`. `continuity_findings_packet` is rightly
+   excluded — wave-1 is not a continuity wave. Continuity cloud promotion, if ever
+   wired, would be its **own** future promotion wave with its own envelope, NOT an
+   edit to wave-1's allow-list. No change needed.
+3. **Committed-fixture conformance — RESOLVED 2026-06-23.** Added a NeuronForge
+   gate `tests/test_continuity_fixture_conformance.py` scoped to fixture *purpose*:
+   curated `inputs/case-packets/*.json` must pass intake (the intentional
+   `*-partial-lineage*` negative fixture is pinned to fail-closed), and every
+   committed `outputs/*.envelope.json` finding is asserted to use only canonical
+   enum values (ENUM MEMBERSHIP — not full-schema conformance, since the envelopes
+   are immutable historical run artifacts). Adversarially proven (bogus enum →
+   RED; corrupted input → RED). Vendored canonical, fail-closed.
 
 ## Scope notes
 
