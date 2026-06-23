@@ -48,13 +48,15 @@ The surface is currently converged; these gates keep it that way.
 
 ## Latent hazards surfaced (NOT drift in the mirrors — flagged for when continuity goes cross-service)
 
-1. **Lineage hash strictness mismatch (real, latent).** pact + AuthorForge require
-   `context_bundle_hash` `minLength 8`; NeuroForge `LineageIdentifiers._check_hash`
-   requires `^sha256:[0-9a-f]{64}$`. A pact-valid 8-char hash would be **rejected**
-   by NeuroForge. Harmless while continuity is local-only; surfaces the day
-   continuity lineage flows to the cloud promotion path. The NeuroForge gate now
-   *pins* the strict rule so it can't change silently. Decision needed when wiring
-   continuity→cloud: relax NeuroForge, or have producers always emit `sha256:`-form.
+1. **Lineage hash strictness mismatch — RESOLVED 2026-06-23 (consumer-relax).**
+   `context_bundle_hash` is an opaque upstream identity (PCC FNV-1a-64, 16 hex),
+   not a NeuroForge-minted digest. NeuroForge's `LineageIdentifiers` previously
+   demanded `^sha256:[0-9a-f]{64}$` and would have **rejected** the real producer
+   output; it is now aligned to pact's canonical floor (`minLength 8`) and imposes
+   no stricter format on this upstream-owned field. NeuroForge's **own** integrity
+   hashes (`wave_manifest_hash`/`strict_success_hash`) keep `sha256:64hex`, pinned
+   separately. pact/PCC/AuthorForge unchanged (canonical stays `minLength 8`). The
+   NeuroForge gate now pins the alignment + the retained integrity strictness.
 2. **packet_class admission ceiling (real, latent).** pact enumerates
    `continuity_findings_packet`, but NeuroForge's wave-1 promotion mirror
    (`promotion/mirror/pact_wave1_envelope_mirror.json`) admits only
