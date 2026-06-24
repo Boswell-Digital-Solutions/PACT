@@ -75,12 +75,48 @@ The surface is currently converged; these gates keep it that way.
    are immutable historical run artifacts). Adversarially proven (bogus enum →
    RED; corrupted input → RED). Vendored canonical, fail-closed.
 
+## Deeper fix — first consumption slice (2026-06-23)
+
+The drift gates make mirrors *loud*; the deeper fix *collapses* them by having
+consumers IMPORT one source instead of hand-copying. First slice landed:
+
+- **`pact-contracts`** (`ecosystem/pact/contracts_py/`) — a tiny zero-dependency,
+  frozen-safe Python package owned by PACT (the continuity domain owner) exposing
+  the six finding enums as frozensets. Pinned to `continuity_findings_packet.schema.json`
+  by `99-contracts/tests/test_continuity_consumable_matches_schema.py` (the
+  consumable can't drift from the schema).
+- **NeuronForge consumes it**: `scripts/validate-continuity-candidate.py` now does
+  `from pact_contracts.continuity import FINDING_TYPES as VALID_FINDING_TYPES, ...`
+  instead of hand-defining the enum sets — verified the imported object IS the
+  package's (`validator.VALID_FINDING_TYPES is pact_contracts.continuity.FINDING_TYPES`).
+  Freeze-robust via a requirements path-dep + a static anchor import in
+  `service/continuity_check_lane.py` (the validator is `importlib`-loaded). See
+  `contracts_py/README.md` for the build-sidecar verify recipe.
+
+Why PACT and not `forge_contract_core`: the latter is a **governed, RFC-gated
+code/ops proving-slice** repo (`source_drift_finding`/`promotion`/`execution`
+families, `code_fix_*` enums) — continuity is manuscript-domain, so it belongs
+with its owner (PACT), not parked in a different-domain hub.
+
+Consumers migrated so far:
+- **NeuronForge validator** (Python) → imports `pact_contracts.continuity`.
+- **AuthorForge api** (TS) → `continuity-findings.ts` enums are GENERATED from the
+  vendored canonical schema (`generate:continuity-vocab` + `check:continuity-vocab-drift`).
+- **AuthorForge frontend** (TS) → `lib/continuity/types.ts` enums are generated too
+  (second output of the same generator), re-exported so its importers are unaffected.
+
+Remaining mirrors: AuthorForge **migration 036 SQL CHECKs** (SQL can't import →
+stays a gated mirror, **by design**), the operator-copy validator/prompts, and
+NeuronForge's `continuity_pact_packet.py` builder. All remaining mirrors stay
+protected by the drift gates meanwhile.
+
 ## Scope notes
 
 - Whole-tree sweep was partly throttled; repos not exhaustively swept for *new*
   mirrors: forge-smithy, DataForge-Local, Forge_Command, Cortex, context-runtime,
-  forgeHQ. `forge_contract_core` currently encodes **zero** continuity dimensions —
-  if it is meant to be the contract registry, that absence is itself the next
-  structural step (the "deeper fix" proper: consume the hub instead of mirroring).
+  forgeHQ. `forge_contract_core` encodes **zero** continuity dimensions — and it
+  should: it's a governed, RFC-gated **code/ops** proving-slice repo, the wrong
+  domain for a manuscript contract. The continuity consumable lives with its owner
+  (PACT) — see "Deeper fix — first consumption slice" above.
 - These gate files are additive (tests + vendored schema copies + manifest). No
   production code changed.
