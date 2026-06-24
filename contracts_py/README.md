@@ -10,10 +10,18 @@ one consumable owned by the domain authority.
 
 ## What's here
 
-- `pact_contracts/continuity.py` — the six continuity finding enums as frozensets
-  (`FINDING_TYPES`, `SCOPE_TYPES`, `SPAN_ROLES`, `CONFIDENCES`, `CANDIDATE_STATES`,
-  `SEVERITY_HINTS`). Pure-Python literals (no runtime JSON read) so the package
-  bundles cleanly into frozen (PyInstaller) sidecars.
+- `pact_contracts/continuity.py` — the consumable continuity vocabulary:
+  - the six finding **enum** value sets as frozensets (`FINDING_TYPES`,
+    `SCOPE_TYPES`, `SPAN_ROLES`, `CONFIDENCES`, `CANDIDATE_STATES`,
+    `SEVERITY_HINTS`) — consumed by *validators*;
+  - the structural **key** vocabulary as ordered tuples (`FINDING_KEYS`,
+    `SPAN_KEYS`, `LINEAGE_KEYS`) — the allowed property keys under the schema's
+    `additionalProperties: false`, consumed by the producer-side *packet builder*
+    to project onto; and
+  - `CANDIDATE_UNREVIEWED` — the candidate-only invariant value (a member of
+    `CANDIDATE_STATES`).
+  Pure-Python literals (no runtime JSON read) so the package bundles cleanly
+  into frozen (PyInstaller) sidecars.
 
 Zero runtime dependencies, by design.
 
@@ -30,9 +38,13 @@ update then propagates to every importer (no per-repo enum edits).
 | Repo | What it consumes | How |
 |------|------------------|-----|
 | NeuronForge (apps copy) | `scripts/validate-continuity-candidate.py` `VALID_*` enums | `from pact_contracts.continuity import FINDING_TYPES as VALID_FINDING_TYPES, ...` |
+| NeuronForge (apps copy) | `service/continuity_pact_packet.py` projection keys + candidate-only value | `from pact_contracts.continuity import FINDING_KEYS, SPAN_KEYS, LINEAGE_KEYS, CANDIDATE_UNREVIEWED` |
+| neuronforge-local-operator | `scripts/validate-continuity-candidate.py` `VALID_*` enums | same import as the apps copy (path-dep `../../pact/contracts_py`) |
 
-(AuthorForge's TS validator + the operator-copy still mirror; they're the next
-consumers to migrate once a TS distribution is added.)
+AuthorForge (TS) consumes the same canonical schema via codegen rather than this
+Python package (`bun run generate:continuity-vocab`, drift-gated). The only
+remaining mirror is migration 036's SQL `CHECK` constraints, which SQL cannot
+import — it stays a **gated** mirror by design.
 
 ## Freeze / sidecar bundling
 
@@ -48,7 +60,10 @@ bundle work:
    so a freeze tool's static analysis can't see its `pact_contracts` import.
    `service/continuity_check_lane.py` (imported by `service.main`) carries a
    statically-reachable `import pact_contracts.continuity` so the package is
-   bundled regardless.
+   bundled regardless. (The packet builder `service/continuity_pact_packet.py`,
+   imported by the lane, now also imports `pact_contracts` statically — a second
+   reachable path — but the explicit anchor is kept so the guarantee does not
+   silently depend on the builder's import staying in place.)
 
 ### Verify the frozen sidecar bundles it (run on a real build)
 
