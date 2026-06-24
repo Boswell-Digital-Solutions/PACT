@@ -101,14 +101,14 @@ with its owner (PACT), not parked in a different-domain hub.
 Consumers migrated so far:
 - **NeuronForge validator** (Python) → imports `pact_contracts.continuity`.
 - **AuthorForge api** (TS) → `continuity-findings.ts` enums are GENERATED from the
-  vendored canonical schema (`generate:continuity-vocab` + `check:continuity-vocab-drift`),
-  not hand-typed.
+  vendored canonical schema (`generate:continuity-vocab` + `check:continuity-vocab-drift`).
+- **AuthorForge frontend** (TS) → `lib/continuity/types.ts` enums are generated too
+  (second output of the same generator), re-exported so its importers are unaffected.
 
-Remaining mirrors (next migrations): AuthorForge **frontend** union types
-(`apps/frontend/src/lib/continuity/types.ts` — generate next), AuthorForge
-**migration 036 SQL CHECKs** (SQL can't import → stays a gated mirror, by design),
-the operator-copy validator/prompts, and NeuronForge's `continuity_pact_packet.py`
-builder. All remaining mirrors stay protected by the drift gates meanwhile.
+Remaining mirrors: AuthorForge **migration 036 SQL CHECKs** (SQL can't import →
+stays a gated mirror, **by design**), the operator-copy validator/prompts, and
+NeuronForge's `continuity_pact_packet.py` builder. All remaining mirrors stay
+protected by the drift gates meanwhile.
 
 ## Scope notes
 
