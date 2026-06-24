@@ -98,9 +98,17 @@ code/ops proving-slice** repo (`source_drift_finding`/`promotion`/`execution`
 families, `code_fix_*` enums) — continuity is manuscript-domain, so it belongs
 with its owner (PACT), not parked in a different-domain hub.
 
-Remaining consumers still mirroring (next migrations): AuthorForge's TS validator
-+ migration CHECKs (needs a TS distribution of the vocabulary), the operator-copy
-validator/prompts, and NeuronForge's `continuity_pact_packet.py` builder.
+Consumers migrated so far:
+- **NeuronForge validator** (Python) → imports `pact_contracts.continuity`.
+- **AuthorForge api** (TS) → `continuity-findings.ts` enums are GENERATED from the
+  vendored canonical schema (`generate:continuity-vocab` + `check:continuity-vocab-drift`),
+  not hand-typed.
+
+Remaining mirrors (next migrations): AuthorForge **frontend** union types
+(`apps/frontend/src/lib/continuity/types.ts` — generate next), AuthorForge
+**migration 036 SQL CHECKs** (SQL can't import → stays a gated mirror, by design),
+the operator-copy validator/prompts, and NeuronForge's `continuity_pact_packet.py`
+builder. All remaining mirrors stay protected by the drift gates meanwhile.
 
 ## Scope notes
 
