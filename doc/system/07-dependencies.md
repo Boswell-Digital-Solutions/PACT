@@ -18,3 +18,4 @@ Expected local startup:
 ```bash
 cd ~/Forge/ecosystem/pact
 source .venv/bin/activate
+```

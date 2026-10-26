@@ -73,7 +73,7 @@ This repo uses the canonical modular documentation posture where source truth is
 
 ## 01. Scope and Role
 
-PACT is a governed internal runtime/service repo within the Forge workspace.
+PACT is a governed internal runtime library and command-line repo within the Forge workspace. It runs no service process: there is no HTTP server and no deployment. A consumer imports the runtime in-process (forgeHQ `app/drivers/pact_client.py`) or runs its scripts. `scripts/operator_api.py` is a command-line entry point.
 
 It currently proves and documents these responsibility areas:
 - contract validation
@@ -193,6 +193,8 @@ Expected local startup:
 ```bash
 cd ~/Forge/ecosystem/pact
 source .venv/bin/activate
+```
+
 ---
 
 ## 40. Governance and Controls
@@ -261,12 +263,6 @@ If the registry drifts from the admitted wave-1 state without the matching gover
 
 ---
 
-
-Replace this file:
-
-`~/Forge/ecosystem/pact/doc/system/50_operations/00_operations_and_verification.md`
-
-```md id="ehwxed"
 ## 50. Operations and Verification
 
 ### Standard operator workflow
@@ -282,7 +278,10 @@ Replace this file:
 python3 -m pip install -r requirements-dev.txt
 python3 scripts/verify_slice_12.py
 python3 -m mypy runtime scripts
+python3 scripts/verify_wave1_promotion_envelope.py
 bash doc/system/BUILD.sh
+```
+
 ---
 
 # TOON Wave 1 Proof Gate Operations Note
@@ -334,6 +333,11 @@ The packet records the current hash and byte size for the core wave-1 evidence f
 
 ## Fail posture
 If any required evidence file is missing, or if an upstream verifier fails, the promotion packet build fails.
+
+## Wave-1 promotion envelope
+`scripts/emit_wave1_promotion_envelope.py` derives `docs/evidence/wave1_promotion_envelope.json` from the wave-1 manifest and this promotion packet. The schema is `99-contracts/schemas/wave1_promotion_envelope.schema.json`. `scripts/verify_wave1_promotion_envelope.py` re-derives the envelope and fails on any field, schema, or hash drift.
+
+The envelope carries admitted TOON wave-1 serialization truth to downstream repositories, which consume it and never alter it. NeuroForge keeps a copy at `neuroforge_backend/promotion/mirror/pact_wave1_envelope_mirror.json`. The envelope promotes a serialization admission. It does not promote a model, a route, or a quality result.
 
 ---
 

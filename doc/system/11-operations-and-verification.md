@@ -1,9 +1,3 @@
-
-Replace this file:
-
-`~/Forge/ecosystem/pact/doc/system/50_operations/00_operations_and_verification.md`
-
-```md id="ehwxed"
 ## 50. Operations and Verification
 
 ### Standard operator workflow
@@ -19,4 +13,6 @@ Replace this file:
 python3 -m pip install -r requirements-dev.txt
 python3 scripts/verify_slice_12.py
 python3 -m mypy runtime scripts
+python3 scripts/verify_wave1_promotion_envelope.py
 bash doc/system/BUILD.sh
+```
