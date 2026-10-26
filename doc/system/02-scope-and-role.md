@@ -1,6 +1,6 @@
 ## 01. Scope and Role
 
-PACT is a governed internal runtime/service repo within the Forge workspace.
+PACT is a governed internal runtime library and command-line repo within the Forge workspace. It runs no service process: there is no HTTP server and no deployment. A consumer imports the runtime in-process (forgeHQ `app/drivers/pact_client.py`) or runs its scripts. `scripts/operator_api.py` is a command-line entry point.
 
 It currently proves and documents these responsibility areas:
 - contract validation
