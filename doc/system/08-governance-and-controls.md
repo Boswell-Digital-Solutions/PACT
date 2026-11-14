@@ -16,4 +16,4 @@ This repo is structured to satisfy the canonical repo documentation posture:
 - `doc/system/`
 - `doc/system/BUILD.sh`
 - repo-class-aware subfolders
-- compiled canonical root artifact at `doc/PACSYSTEM.md`
+- compiled canonical root artifact at `doc/pacSYSTEM.md`
