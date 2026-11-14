@@ -1,13 +1,13 @@
 # PACT - Compiled System Reference
 
-**Designation:** PAC
+**Designation:** pac
 **Document role:** Canonical compiled technical reference for the PACT contract and runtime harness
 **Source:** `doc/system/`
 **Build command:** `bash doc/system/BUILD.sh`
 **Document version:** 2.1 (2026-09-10) - flattened to one globally-numbered doc/system/NN-kebab-case.md sequence (01-20) per BDS Documentation Protocol v2.0 section 5.3, replacing the 2.0 numbered-subdirectory layout in which local per-section numbers collided across sections
 **Protocol:** BDS Documentation Protocol v2.0; BDS Repo Documentation System Canonical Compliance Standard
 
-> **Generated artifact warning:** `doc/PACSYSTEM.md` is assembled output. Edit
+> **Generated artifact warning:** `doc/pacSYSTEM.md` is assembled output. Edit
 > the source modules under `doc/system/` and rebuild. Hand edits to the
 > compiled artifact are overwritten by the next build.
 
@@ -15,7 +15,7 @@ Assembly contract:
 
 - Command: `bash doc/system/BUILD.sh`
 - Validation: `bash doc/system/validate_snapshots.sh` runs during assembly
-- Primary output: `doc/PACSYSTEM.md`
+- Primary output: `doc/pacSYSTEM.md`
 
 This `doc/system/` tree is the canonical source of truth for PACT. It uses
 explicit **truth classes**: canonical facts define repo role, authority
@@ -61,13 +61,13 @@ PACT is the packet-and-control contract runtime that provides governed packet sh
 
 ### Canonical identity
 - Repository name: `PACT`
-- Designation: `PAC`
-- Canonical compiled artifact: `doc/PACSYSTEM.md`
+- Designation: `pac`
+- Canonical compiled artifact: `doc/pacSYSTEM.md`
 - Source tree root: `doc/system/`
 - Build entry: `doc/system/BUILD.sh`
 
 ### Documentation posture
-This repo uses the canonical modular documentation posture where source truth is maintained under `doc/system/` and assembled into `doc/PACSYSTEM.md` through the governed build path.
+This repo uses the canonical modular documentation posture where source truth is maintained under `doc/system/` and assembled into `doc/pacSYSTEM.md` through the governed build path.
 
 ---
 
@@ -215,7 +215,7 @@ This repo is structured to satisfy the canonical repo documentation posture:
 - `doc/system/`
 - `doc/system/BUILD.sh`
 - repo-class-aware subfolders
-- compiled canonical root artifact at `doc/PACSYSTEM.md`
+- compiled canonical root artifact at `doc/pacSYSTEM.md`
 
 ---
 
@@ -271,7 +271,7 @@ If the registry drifts from the admitted wave-1 state without the matching gover
 3. install or refresh dependencies from `requirements-dev.txt`
 4. run slice verification
 5. run mypy
-6. rebuild `doc/PACSYSTEM.md` after documentation edits
+6. rebuild `doc/pacSYSTEM.md` after documentation edits
 
 ### Standard verification commands
 ```bash

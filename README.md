@@ -31,10 +31,10 @@
 ## Documentation Contract
 
 - **Repo type:** Governed internal runtime/service repo for packet contracts, runtime receipts, evidence, and operator export surfaces
-- **Designation:** `PAC`
+- **Designation:** `pac`
 - **Authority boundary:** Packet/runtime contract behavior, receipt construction, serialization evidence, replay/live adapter boundaries, TOON proof gates, and bounded operator exports
-- **Deep reference:** `doc/system/_index.md`, `doc/PACSYSTEM.md`
-- **Assembled system reference:** `doc/PACSYSTEM.md` is the primary built system reference; edit `doc/system/` and rebuild
+- **Deep reference:** `doc/system/_index.md`, `doc/pacSYSTEM.md`
+- **Assembled system reference:** `doc/pacSYSTEM.md` is the primary built system reference; edit `doc/system/` and rebuild
 - **README role:** Product overview and operator entrypoint
 - **Truth note:** Status badges, verification status, slice references, and implementation summaries in this README are snapshot facts unless explicitly marked as canonical doctrine or target values
 
@@ -196,7 +196,7 @@ posture, golden hashes, replay matrices, and non-strict canonical digest locks.
 
 ### Canonical Documentation
 
-The modular `doc/system/` tree assembles into `doc/PACSYSTEM.md` and keeps repo
+The modular `doc/system/` tree assembles into `doc/pacSYSTEM.md` and keeps repo
 identity, runtime topology, governance, and operations in a governed reference.
 
 </td>
@@ -259,7 +259,7 @@ workflow, not a dashboard.
 | `harness/adversarial/` | Keep adversarial verification scope explicit. |
 | `docs/evidence/` | Store TOON wave proof reports, promotion packets, and manifest artifacts. |
 | `control-plane/` | Hold operator catalog, analysis, proposals, and rollout notes. |
-| `doc/PACSYSTEM.md` | Read the assembled canonical system reference. |
+| `doc/pacSYSTEM.md` | Read the assembled canonical system reference. |
 
 ### Design Principles
 
@@ -312,7 +312,7 @@ pact/
 |-- control-plane/       # Operator analysis, proposal, rollout, and catalog surfaces
 |-- corpus/              # Evaluation corpus manifests and case files
 |-- doc/system/          # Canonical modular system documentation source
-|-- doc/PACSYSTEM.md     # Generated assembled system reference
+|-- doc/pacSYSTEM.md     # Generated assembled system reference
 |-- docs/                # Plans, architecture notes, runbooks, and evidence
 |-- harness/             # Regression, replay, adversarial, audit, and handoff assets
 |-- runtime/             # Packet, retrieval, budget, receipt, export, and telemetry code
@@ -364,17 +364,17 @@ bash doc/system/BUILD.sh
 The build emits:
 
 ```text
-doc/PACSYSTEM.md
+doc/pacSYSTEM.md
 ```
 
-Do not hand-edit `doc/PACSYSTEM.md` for durable changes. Edit the corresponding
+Do not hand-edit `doc/pacSYSTEM.md` for durable changes. Edit the corresponding
 source module under `doc/system/` and rebuild.
 
 ---
 
 ## Learn More
 
-- Canonical assembled reference: [`doc/PACSYSTEM.md`](doc/PACSYSTEM.md)
+- Canonical assembled reference: [`doc/pacSYSTEM.md`](doc/pacSYSTEM.md)
 - Canonical source index: [`doc/system/_index.md`](doc/system/_index.md)
 - Contract bundle: [`99-contracts/README.md`](99-contracts/README.md)
 - Harness overview: [`harness/README.md`](harness/README.md)

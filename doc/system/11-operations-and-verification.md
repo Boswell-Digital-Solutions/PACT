@@ -6,7 +6,7 @@
 3. install or refresh dependencies from `requirements-dev.txt`
 4. run slice verification
 5. run mypy
-6. rebuild `doc/PACSYSTEM.md` after documentation edits
+6. rebuild `doc/pacSYSTEM.md` after documentation edits
 
 ### Standard verification commands
 ```bash

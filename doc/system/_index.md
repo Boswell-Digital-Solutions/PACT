@@ -1,13 +1,13 @@
 # PACT - Compiled System Reference
 
-**Designation:** PAC
+**Designation:** pac
 **Document role:** Canonical compiled technical reference for the PACT contract and runtime harness
 **Source:** `doc/system/`
 **Build command:** `bash doc/system/BUILD.sh`
 **Document version:** 2.1 (2026-09-10) - flattened to one globally-numbered doc/system/NN-kebab-case.md sequence (01-20) per BDS Documentation Protocol v2.0 section 5.3, replacing the 2.0 numbered-subdirectory layout in which local per-section numbers collided across sections
 **Protocol:** BDS Documentation Protocol v2.0; BDS Repo Documentation System Canonical Compliance Standard
 
-> **Generated artifact warning:** `doc/PACSYSTEM.md` is assembled output. Edit
+> **Generated artifact warning:** `doc/pacSYSTEM.md` is assembled output. Edit
 > the source modules under `doc/system/` and rebuild. Hand edits to the
 > compiled artifact are overwritten by the next build.
 
@@ -15,7 +15,7 @@ Assembly contract:
 
 - Command: `bash doc/system/BUILD.sh`
 - Validation: `bash doc/system/validate_snapshots.sh` runs during assembly
-- Primary output: `doc/PACSYSTEM.md`
+- Primary output: `doc/pacSYSTEM.md`
 
 This `doc/system/` tree is the canonical source of truth for PACT. It uses
 explicit **truth classes**: canonical facts define repo role, authority
